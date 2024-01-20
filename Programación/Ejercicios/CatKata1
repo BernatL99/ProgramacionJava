@@ -1,20 +1,41 @@
 public class PeacefulYard {
     public static boolean peacefulYard(String[] yard, int minDistance) {
-      int posiciones[][] = new int [2][3];
-      for (int i = 0; i < yard.length ; 1++){
-        for(int j = 0; j < yard[i].length; j++){
-          char cat1 = yard[i].charAt(j);
-          if(cat1 != "-"){
-            for(int y = 0 ; y < posiciones.length ; y++){
-              for(int x = 0 ; x < posiciones[y].length ; x++){
-                posiciones[x] = j;
-                posiciones[y] = i;
-              }
+        int posiciones[][] = new int[3][2];
+      int cats=0;
+        for (int i = 0; i < yard.length; i++) {
+            for (int j = 0; j < yard[i].length(); j++) {
+                char cat1 = yard[i].charAt(j);
+                if (cat1 != '-') {
+                    posiciones[cats][0]= i;
+                  posiciones[cats][1]= j;
+                    cats++;
+                }
             }
-            
+        }
+      
+      if (cats <= 1){
+        
+        return true;
+      } else {
+        
+        for (int c = 1; c<cats; c++){
+         double distancia =0;
+          distancia = Math.sqrt(Math.pow(posiciones[c][0]-posiciones[c-1][0],2) +Math.pow(posiciones[c][1]-posiciones[c-1][1],2) );
+         if ( distancia < minDistance){
+            return false;
           }
-          return peacefulYard;
+          if (c==2) {
+           
+            distancia = Math.sqrt(Math.pow(posiciones[c][0]-posiciones[0][0],2) +Math.pow(posiciones[c][1]-posiciones[0][1],2) );
+         }
+          if ( distancia < minDistance){
+            return false;
+          }
+            
         }
       }
-    }
+      
+      
+      return true;
+}
 }
